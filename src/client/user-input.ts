@@ -6,6 +6,9 @@ export class UserInput {
     public screenH: number = 0;
     public moveDirectionX: number = 0;
     public moveDirectionY: number = 0;
+    public jump: boolean = false;
+    public attackLight: boolean = false;
+    public attackHeavy: boolean = false;
     public mouseX: number = 0;
     public mouseY: number = 0;
     public zoom: number = 1;
@@ -14,6 +17,9 @@ export class UserInput {
     private down: boolean = false;
     private left: boolean = false;
     private right: boolean = false;
+    private spacePressed: boolean = false;
+    private ePressed: boolean = false;
+    private rPressed: boolean = false;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -35,6 +41,19 @@ export class UserInput {
             else if (event.code == "KeyA") this.left = true;
             else if (event.code == "KeyS") this.down = true;
             else if (event.code == "KeyD") this.right = true;
+            else if (event.code == "Space") {
+                event.preventDefault();
+                this.spacePressed = true;
+                this.jump = true;
+            }
+            else if (event.code == "KeyE") {
+                this.ePressed = true;
+                this.attackLight = true;
+            }
+            else if (event.code == "KeyR") {
+                this.rPressed = true;
+                this.attackHeavy = true;
+            }
 
             this.updateMoveDirections();
         });
@@ -43,6 +62,18 @@ export class UserInput {
             else if (event.code == "KeyA") this.left = false;
             else if (event.code == "KeyS") this.down = false;
             else if (event.code == "KeyD") this.right = false;
+            else if (event.code == "Space") {
+                this.spacePressed = false;
+                this.jump = false;
+            }
+            else if (event.code == "KeyE") {
+                this.ePressed = false;
+                this.attackLight = false;
+            }
+            else if (event.code == "KeyR") {
+                this.rPressed = false;
+                this.attackHeavy = false;
+            }
 
             this.updateMoveDirections();
         });
